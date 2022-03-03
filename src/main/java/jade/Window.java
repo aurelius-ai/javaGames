@@ -27,7 +27,7 @@ public class Window {
 	private Window() {
 		this.width = 1920;
 		this.height = 1080;
-		this.title = "Mario";
+		this.title = "Super";
 		r = 1; 	b = 1; 	g = 1; 	a = 1;
 	}
 	
@@ -35,10 +35,11 @@ public class Window {
 		switch (newScene) {
 		case 0:
 			currentScene = new LevelEditorScene();
-			//currentScene.init();
+			currentScene.init();
 			break;
 		case 1:
 			currentScene = new LevelScene();
+			currentScene.init();
 			break;
 		default:
 			assert false: "Unknown scene '" +  newScene + "'";
@@ -84,7 +85,7 @@ public class Window {
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // the window will be maximized
 
 		// Create the window
-		glfwWindow = glfwCreateWindow(this.width,this.height, "this.title", NULL, NULL);
+		glfwWindow = glfwCreateWindow(this.width,this.height, this.title, NULL, NULL);
 		if ( glfwWindow == NULL ) {
 			throw new IllegalStateException("Failed to create the GLFW window");
 			}
