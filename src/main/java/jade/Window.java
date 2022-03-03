@@ -16,12 +16,18 @@ public class Window {
 	String title;
 	private long glfwWindow;
 	
+	private float r, g, b, a;
+	
 	private static Window window = null;
 
 	private Window() {
 		this.width = 1920;
 		this.height = 1080;
 		this.title = "Mario";
+		r = 1;
+		b = 1;
+		g = 1;
+		a = 1;
 		
 	}
 	
@@ -38,10 +44,9 @@ public class Window {
 		
 		init();
 		loop();
-
-		// Free the window callbacks and destroy the window
-		//glfwFreeCallbacks(glfwWindow);
-		//glfwDestroyWindow(glfwWindow);
+		// Free the window callbacks and destroy the window	
+		glfwFreeCallbacks(glfwWindow);
+		glfwDestroyWindow(glfwWindow);
 
 		// Terminate GLFW and free the error callback
 		GLFW.glfwTerminate();
@@ -68,7 +73,13 @@ public class Window {
 		if ( glfwWindow == NULL ) {
 			throw new IllegalStateException("Failed to create the GLFW window");
 			}
+		
+		glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback); // lambda syntax to return pos callback to function
 	
+		glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+		glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+		glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+		
 		// Make OpenGL context current
 		glfwMakeContextCurrent(glfwWindow);
 		// Enable v-sync
@@ -91,16 +102,38 @@ public class Window {
 			glfwPollEvents();
 
 		// Set the clear color
-		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-		// red: 1.0f, 0.0f, 0.0f, 1.0f
-		// green: 0.0f, 1.0f,1.0f
-		// blue: 0.0f, 0.0f, 1.0f, 1.0f
-		// white: 1.0f, 1.0f, 1.0f, 1.0f
-
-		glfwSwapBuffers(glfwWindow); // swap the color buffers
+		glClearColor(r, g, b, a);
 		glClear(GL_COLOR_BUFFER_BIT);
+	
+		
+		if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)) {
+			r = Math.max(r-0.01f,  0);
+			g = Math.max(r-0.01f, 0);
+			b = Math.max(r-0.01f, 0);
+		}
+		if (KeyListener.isKeyPressed(GLFW_KEY_W)) {
+			r = Math.max(r+0.01f,  1);
+			g = Math.max(r+0.01f, 1);
+			b = Math.max(r+0.01f, 1);
+		}
+		
+		glfwSwapBuffers(glfwWindow); // swap the color buffers
+		if (KeyListener.isKeyPressed(GLFW_KEY_R)) {
+			r = 1; g = 0; b = 0; a = 1;
+			
+		}
+		if (KeyListener.isKeyPressed(GLFW_KEY_G)) {
+			r = 0; g = 1; b = 0; a = 1;			
+		}
+		if (KeyListener.isKeyPressed(GLFW_KEY_B)) {
+			r = 0; g = 0; b = 1; a = 1;	
+
+		}
+		if (KeyListener.isKeyPressed(GLFW_KEY_C)) {
+			r = 0; g = 1; b = 1; a = 1; 
 		}
 		
 	}
 	
-}
+}}
+
