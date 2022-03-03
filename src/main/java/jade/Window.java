@@ -11,6 +11,8 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import util.Time;
+
 public class Window {
 	int width, height;
 	String title;
@@ -97,6 +99,8 @@ public class Window {
 				}
 
 	private void loop() {
+		float beginTime = Time.getTime();
+		float endTime = Time.getTime();
 		while (!glfwWindowShouldClose(glfwWindow)) {
 			// Poll events
 			glfwPollEvents();
@@ -118,20 +122,10 @@ public class Window {
 		}
 		
 		glfwSwapBuffers(glfwWindow); // swap the color buffers
-		if (KeyListener.isKeyPressed(GLFW_KEY_R)) {
-			r = 1; g = 0; b = 0; a = 1;
-			
-		}
-		if (KeyListener.isKeyPressed(GLFW_KEY_G)) {
-			r = 0; g = 1; b = 0; a = 1;			
-		}
-		if (KeyListener.isKeyPressed(GLFW_KEY_B)) {
-			r = 0; g = 0; b = 1; a = 1;	
-
-		}
-		if (KeyListener.isKeyPressed(GLFW_KEY_C)) {
-			r = 0; g = 1; b = 1; a = 1; 
-		}
+		
+		endTime = Time.getTime();
+		float dt = endTime - beginTime;
+		beginTime = endTime;
 		
 	}
 	
