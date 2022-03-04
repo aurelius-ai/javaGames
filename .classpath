@@ -30,6 +30,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="lib" path="assets/shaders"/>
+	<classpathentry kind="lib" path="assets/images"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
