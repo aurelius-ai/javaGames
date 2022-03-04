@@ -1,26 +1,18 @@
 package components;
 
 import jade.Component;
-import org.joml.Vector4f;
 
-public class SpriteRenderer extends Component {
-
-    private Vector4f color;
-
-    public SpriteRenderer(Vector4f color) {
-        this.color = color;
-    }
+public class FontRenderer extends Component {
 
     @Override
     public void start() {
+        if (gameObject.getComponent(SpriteRenderer.class) != null) {
+            System.out.println("Found Font Renderer!");
+        }
     }
 
     @Override
     public void update(float dt) {
 
-    }
-
-    public Vector4f getColor() {
-        return this.color;
     }
 }
